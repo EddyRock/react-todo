@@ -1,0 +1,23 @@
+.current-date {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__left {
+    display: flex;
+    align-items: center;
+  }
+
+  &__day {
+    font-size: 50px;
+  }
+
+  &__month-year {
+    display: flex;
+    flex-direction: column;
+    min-height: 37px;
+    justify-content: space-between;
+    margin-left: 10px;
+  }
+}
