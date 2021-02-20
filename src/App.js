@@ -8,6 +8,7 @@ class App extends React.Component {
         this.state = {
             value: '',
             edit: false,
+            list: [],
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -47,25 +48,44 @@ class App extends React.Component {
     }
 
     setNewTask(value) {
-        const id = `f${(+new Date).toString(16)}`;
-        localStorage.setItem('todo-list', value);
+        if(!value) {
+            return;
+        }
+
+        const list = this.state.list;
+        list.push(value);
+        localStorage.setItem('list', JSON.stringify(list));
+
+        this.setState({
+            list: list,
+        })
+    }
+
+    componentDidMount() {
+        const list = JSON.parse(localStorage.getItem('list')) || [];
+        this.setState({
+            list,
+        })
     }
 
     render() {
         const edit = this.state.edit;
-        let component;
-        if(edit) {
-            component = <InputField
-                className="app__input"
-                value={this.state.value}
-                onChange={this.handleInput}
-                onEnter={this.onEnter}
-            />
-        }
+        const list = this.state.list.map(item => <p>{item}</p>)
+
         return (
             <div className="app">
                 <Header />
-                { component }
+                {
+                    edit ? <InputField
+                        className="app__input"
+                        value={this.state.value}
+                        onChange={this.handleInput}
+                        onEnter={this.onEnter}
+                    /> : null
+                }
+                {
+                    list
+                }
                 <button
                     onClick={this.setEditMode}
                     className="app__button"
