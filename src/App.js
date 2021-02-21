@@ -15,7 +15,7 @@ class App extends React.Component {
         this.handleInput = this.handleInput.bind(this);
         this.setEditMode = this.setEditMode.bind(this);
         this.onEnter = this.onEnter.bind(this);
-        this.update = this.update.bind(this);
+        this.loadState = this.loadState.bind(this);
     }
 
     handleInput(e) {
@@ -40,6 +40,7 @@ class App extends React.Component {
         this.setState({
             value: '',
         });
+
         this.setEditMode();
     }
 
@@ -63,7 +64,7 @@ class App extends React.Component {
         })
     }
 
-    update() {
+    loadState() {
         const list = JSON.parse(localStorage.getItem('list')) || [];
         this.setState({
             list,
@@ -71,7 +72,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.update();
+        this.loadState();
     }
 
     render() {
@@ -79,7 +80,7 @@ class App extends React.Component {
         const list = this.state.list
             .map((item, index) => {
                 return <Task
-                    onUpdate={this.update}
+                    onUpdate={this.loadState}
                     className="app__task"
                     key={index}
                     index={index}

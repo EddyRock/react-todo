@@ -10,59 +10,52 @@
     }
   }
 
+  &__checkbox {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    & input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked ~ .task__checkmark {
+        border-color: #4fe3a3;
+        background-image: url("../../assets/icons/checked.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 70% 70%;
+      }
+    }
+  }
+
+  &__checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 3px solid #eef0f5;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+
 }
 
-.container {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 30px;
-  width: 30px;
-  background-color: transparent;
-  border-radius: 50%;
-  border: 3px solid #eef0f5;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-  border-color: #4fe3a3;
-  background-image: url("../../assets/icons/checked.svg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 70% 70%;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
+.task__checkbox input:checked ~ .task__checkmark:after {
   display: block;
 }

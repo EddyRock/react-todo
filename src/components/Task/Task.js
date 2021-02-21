@@ -40,13 +40,14 @@ class Task extends React.Component {
 				>
 					{ this.props.value }
 				</p>
-				<label className="container">
+
+				<label className="task__checkbox">
 					<input
 						onChange={this.onUpdateTask}
 						type="checkbox"
 						checked={this.state.checked}
 					/>
-					<span className="checkmark"></span>
+					<span className="task__checkmark"></span>
 				</label>
 			</div>
 		);
