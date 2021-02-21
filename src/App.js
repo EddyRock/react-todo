@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/Header/Header";
 import InputField from "./components/InputField/InputField";
+import Task from "./components/Task/Task"
 
 class App extends React.Component {
     constructor() {
@@ -14,6 +15,7 @@ class App extends React.Component {
         this.handleInput = this.handleInput.bind(this);
         this.setEditMode = this.setEditMode.bind(this);
         this.onEnter = this.onEnter.bind(this);
+        this.update = this.update.bind(this);
     }
 
     handleInput(e) {
@@ -22,13 +24,13 @@ class App extends React.Component {
         });
     };
 
-    handleEnter(e) {
-        if (e.key === 'Enter') {
-            console.log('do validate');
-        }
-    }
-
     onEnter(e) {
+        if(e.key === "Escape") {
+            this.setState({
+                exit: false,
+            });
+        }
+
         if (!(e.key === 'Enter')) {
             return;
         }
@@ -53,7 +55,7 @@ class App extends React.Component {
         }
 
         const list = this.state.list;
-        list.push(value);
+        list.push({value, checked: false});
         localStorage.setItem('list', JSON.stringify(list));
 
         this.setState({
@@ -61,31 +63,43 @@ class App extends React.Component {
         })
     }
 
-    componentDidMount() {
+    update() {
         const list = JSON.parse(localStorage.getItem('list')) || [];
         this.setState({
             list,
         })
     }
 
+    componentDidMount() {
+        this.update();
+    }
+
     render() {
         const edit = this.state.edit;
-        const list = this.state.list.map(item => <p>{item}</p>)
+        const list = this.state.list
+            .map((item, index) => {
+                return <Task
+                    onUpdate={this.update}
+                    className="app__task"
+                    key={index}
+                    index={index}
+                    checked={item.checked}
+                />
+            })
 
         return (
             <div className="app">
                 <Header />
-                {
-                    edit ? <InputField
-                        className="app__input"
-                        value={this.state.value}
-                        onChange={this.handleInput}
-                        onEnter={this.onEnter}
-                    /> : null
-                }
-                {
-                    list
-                }
+                <div className="app__content">
+                    {
+                        edit ? <InputField
+                            value={this.state.value}
+                            onChange={this.handleInput}
+                            onEnter={this.onEnter}
+                        /> : null
+                    }
+                    { list }
+                </div>
                 <button
                     onClick={this.setEditMode}
                     className="app__button"
