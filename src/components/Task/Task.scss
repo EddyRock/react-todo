@@ -5,6 +5,8 @@
   font-size: 20px;
 
   &__value {
+    width: 100%;
+    max-width: 350px;
     &--light {
       color: lighten(#616473, 30%)
     }

@@ -34,7 +34,7 @@ class App extends React.Component {
         if (!(e.key === 'Enter')) {
             return;
         }
-
+        
         this.setNewTask(this.state.value);
 
         this.setState({
@@ -83,6 +83,7 @@ class App extends React.Component {
                     onUpdate={this.loadState}
                     className="app__task"
                     key={index}
+                    value={item.value}
                     index={index}
                     checked={item.checked}
                 />
