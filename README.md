@@ -1,4 +1,4 @@
-<img align="center" width="30%" src="/extra/screen.png">
+<img align="center" width="30%" src="./extra/screen.png">
 
 # React TODO App
 
